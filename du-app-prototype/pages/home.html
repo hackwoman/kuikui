@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>得物 - 首页</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+</head>
+<body>
+    <!-- 顶部搜索栏 -->
+    <div class="sticky top-0 z-10 bg-white dark:bg-black shadow-sm px-4 py-3 flex items-center">
+        <div class="relative flex-1">
+            <input type="text" placeholder="搜索商品、品牌" class="w-full bg-gray-100 dark:bg-gray-800 rounded-full py-2 pl-9 pr-4 text-sm">
+            <i class="fas fa-search absolute left-3 top-2.5 text-gray-400"></i>
+        </div>
+        <div class="ml-3 text-lg flex">
+            <i class="far fa-bell mr-4"></i>
+            <i class="far fa-comment-alt"></i>
+        </div>
+    </div>
+
+    <!-- 轮播图 -->
+    <div id="home-carousel" class="relative">
+        <div class="carousel-slide">
+            <img src="https://images.unsplash.com/photo-1597045566677-8cf032ed6634?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Banner 1" class="w-full h-40 object-cover">
+        </div>
+        <div class="carousel-slide" style="display: none;">
+            <img src="https://images.unsplash.com/photo-1555274175-75f4056dfd05?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Banner 2" class="w-full h-40 object-cover">
+        </div>
+        <div class="carousel-slide" style="display: none;">
+            <img src="https://images.unsplash.com/photo-1582588678413-dbf45f4823e9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Banner 3" class="w-full h-40 object-cover">
+        </div>
+    </div>
+
+    <!-- 分类导航 -->
+    <div class="grid grid-cols-5 text-center py-4 text-xs">
+        <div class="flex flex-col items-center">
+            <div class="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-800 mb-1 flex items-center justify-center">
+                <i class="fas fa-shoe-prints text-lg text-green-500"></i>
+            </div>
+            <span>球鞋</span>
+        </div>
+        <div class="flex flex-col items-center">
+            <div class="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-800 mb-1 flex items-center justify-center">
+                <i class="fas fa-tshirt text-lg text-blue-500"></i>
+            </div>
+            <span>潮服</span>
+        </div>
+        <div class="flex flex-col items-center">
+            <div class="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-800 mb-1 flex items-center justify-center">
+                <i class="fas fa-watch text-lg text-red-500"></i>
+            </div>
+            <span>手表</span>
+        </div>
+        <div class="flex flex-col items-center">
+            <div class="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-800 mb-1 flex items-center justify-center">
+                <i class="fas fa-laptop text-lg text-purple-500"></i>
+            </div>
+            <span>数码</span>
+        </div>
+        <div class="flex flex-col items-center">
+            <div class="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-800 mb-1 flex items-center justify-center">
+                <i class="fas fa-th text-lg text-yellow-500"></i>
+            </div>
+            <span>更多</span>
+        </div>
+    </div>
+
+    <!-- 商品列表标题 -->
+    <div class="px-4 py-2 flex justify-between items-center border-b border-gray-200 dark:border-gray-800">
+        <h2 class="text-lg font-bold">热门推荐</h2>
+        <div class="flex text-sm">
+            <span class="mr-4 font-medium">推荐</span>
+            <span class="mr-4 text-gray-500">新品</span>
+            <span class="text-gray-500">价格</span>
+        </div>
+    </div>
+
+    <!-- 商品列表 -->
+    <div class="p-2">
+        <div id="products-container" class="grid grid-cols-2 gap-2">
+            <!-- 商品卡片由JavaScript加载 -->
+        </div>
+    </div>
+
+    <!-- 底部导航栏 -->
+    <div class="bottom-nav">
+        <div class="nav-item active" data-page="home">
+            <i class="fas fa-home"></i>
+            <span>首页</span>
+        </div>
+        <div class="nav-item" data-page="category">
+            <i class="fas fa-th-large"></i>
+            <span>分类</span>
+        </div>
+        <div class="nav-item" data-page="community">
+            <i class="fas fa-compass"></i>
+            <span>社区</span>
+        </div>
+        <div class="nav-item" data-page="cart">
+            <i class="fas fa-shopping-cart"></i>
+            <span>购物车</span>
+        </div>
+        <div class="nav-item" data-page="profile">
+            <i class="fas fa-user"></i>
+            <span>我的</span>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script>
+        // 初始化轮播图
+        document.addEventListener('DOMContentLoaded', function() {
+            initCarousel('home-carousel');
+            
+            // 加载初始商品
+            loadMoreProducts('products-container');
+            
+            // 设置无限滚动
+            setupInfiniteScroll('#products-container', function() {
+                loadMoreProducts('products-container');
+            });
+        });
+    </script>
+</body>
+</html> 

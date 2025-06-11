@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人中心 - 得物</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- 用户信息头部 -->
+    <div class="relative">
+        <!-- 背景 -->
+        <div class="h-40 bg-gradient-to-r from-green-400 to-green-600"></div>
+        
+        <!-- 设置按钮 -->
+        <div class="absolute top-3 right-3 flex">
+            <button class="w-8 h-8 rounded-full bg-black bg-opacity-30 flex items-center justify-center text-white mr-2">
+                <i class="fas fa-cog"></i>
+            </button>
+            <button class="w-8 h-8 rounded-full bg-black bg-opacity-30 flex items-center justify-center text-white">
+                <i class="fas fa-bell"></i>
+            </button>
+        </div>
+        
+        <!-- 用户信息 -->
+        <div class="absolute -bottom-16 left-0 right-0 px-4">
+            <div class="flex">
+                <div class="w-20 h-20 rounded-full border-4 border-white dark:border-black overflow-hidden bg-white">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="用户头像" class="w-full h-full object-cover">
+                </div>
+                <div class="ml-3 mt-2">
+                    <h2 class="font-bold text-lg text-white">潮流达人</h2>
+                    <div class="flex items-center">
+                        <span class="bg-black bg-opacity-30 text-white text-xs px-2 py-1 rounded-full">
+                            鉴定师 Lv.3
+                        </span>
+                        <button class="ml-2 text-xs text-white bg-black bg-opacity-30 px-2 py-1 rounded-full flex items-center">
+                            <i class="fas fa-edit mr-1"></i> 编辑资料
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 数据统计 -->
+    <div class="mt-20 px-4 flex justify-between">
+        <div class="text-center">
+            <div class="font-bold">268</div>
+            <div class="text-xs text-gray-500">关注</div>
+        </div>
+        <div class="text-center">
+            <div class="font-bold">1,245</div>
+            <div class="text-xs text-gray-500">粉丝</div>
+        </div>
+        <div class="text-center">
+            <div class="font-bold">32</div>
+            <div class="text-xs text-gray-500">动态</div>
+        </div>
+        <div class="text-center">
+            <div class="font-bold">128</div>
+            <div class="text-xs text-gray-500">鉴定</div>
+        </div>
+    </div>
+    
+    <!-- 订单卡片 -->
+    <div class="mt-4 mx-4 p-4 bg-white dark:bg-gray-900 rounded-lg">
+        <div class="flex justify-between items-center mb-3">
+            <h3 class="font-bold">我的订单</h3>
+            <div class="text-xs text-gray-500 flex items-center">
+                全部订单 <i class="fas fa-chevron-right ml-1"></i>
+            </div>
+        </div>
+        
+        <div class="flex justify-between text-center">
+            <div class="order-item">
+                <div class="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center mx-auto mb-1">
+                    <i class="fas fa-credit-card"></i>
+                </div>
+                <div class="text-xs">待付款</div>
+            </div>
+            <div class="order-item">
+                <div class="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center mx-auto mb-1">
+                    <i class="fas fa-box"></i>
+                </div>
+                <div class="text-xs">待发货</div>
+            </div>
+            <div class="order-item">
+                <div class="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center mx-auto mb-1">
+                    <i class="fas fa-truck"></i>
+                </div>
+                <div class="text-xs">待收货</div>
+            </div>
+            <div class="order-item">
+                <div class="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center mx-auto mb-1">
+                    <i class="fas fa-comment-alt"></i>
+                </div>
+                <div class="text-xs">待评价</div>
+            </div>
+            <div class="order-item">
+                <div class="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center mx-auto mb-1">
+                    <i class="fas fa-undo"></i>
+                </div>
+                <div class="text-xs">退款/售后</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 我的服务 -->
+    <div class="mt-4 mx-4 p-4 bg-white dark:bg-gray-900 rounded-lg">
+        <h3 class="font-bold mb-3">我的服务</h3>
+        
+        <div class="grid grid-cols-4 gap-3">
+            <div class="service-item text-center">
+                <div class="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center mx-auto mb-1">
+                    <i class="fas fa-heart text-red-500"></i>
+                </div>
+                <div class="text-xs">收藏夹</div>
+            </div>
+            <div class="service-item text-center">
+                <div class="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center mx-auto mb-1">
+                    <i class="fas fa-eye text-blue-500"></i>
+                </div>
+                <div class="text-xs">浏览记录</div>
+            </div>
+            <div class="service-item text-center">
+                <div class="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center mx-auto mb-1">
+                    <i class="fas fa-wallet text-yellow-500"></i>
+                </div>
+                <div class="text-xs">钱包</div>
+            </div>
+            <div class="service-item text-center">
+                <div class="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center mx-auto mb-1">
+                    <i class="fas fa-ticket-alt text-purple-500"></i>
+                </div>
+                <div class="text-xs">优惠券</div>
+            </div>
+            <div class="service-item text-center">
+                <div class="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center mx-auto mb-1">
+                    <i class="fas fa-map-marker-alt text-green-500"></i>
+                </div>
+                <div class="text-xs">收货地址</div>
+            </div>
+            <div class="service-item text-center">
+                <div class="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center mx-auto mb-1">
+                    <i class="fas fa-shield-alt text-blue-500"></i>
+                </div>
+                <div class="text-xs">账号安全</div>
+            </div>
+            <div class="service-item text-center">
+                <div class="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center mx-auto mb-1">
+                    <i class="fas fa-headset text-orange-500"></i>
+                </div>
+                <div class="text-xs">客服中心</div>
+            </div>
+            <div class="service-item text-center">
+                <div class="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center mx-auto mb-1">
+                    <i class="fas fa-ellipsis-h text-gray-500"></i>
+                </div>
+                <div class="text-xs">更多服务</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 我的动态 -->
+    <div class="mt-4 mx-4 mb-20">
+        <div class="flex justify-between items-center mb-3">
+            <h3 class="font-bold">我的动态</h3>
+            <div class="text-xs text-gray-500 flex items-center">
+                全部动态 <i class="fas fa-chevron-right ml-1"></i>
+            </div>
+        </div>
+        
+        <div class="post-card">
+            <div class="user-info">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" class="user-avatar">
+                <div>
+                    <div class="font-semibold">潮流达人</div>
+                    <div class="text-xs text-gray-500">3小时前</div>
+                </div>
+            </div>
+            <p>刚入手的AJ1芝加哥，质感真的没话说！</p>
+            <img src="https://images.unsplash.com/photo-1556906781-9a412961c28c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" class="w-full rounded-lg mt-2">
+            <div class="interaction-bar">
+                <div>
+                    <i class="far fa-heart mr-1"></i> 128
+                    <i class="far fa-comment ml-4 mr-1"></i> 32
+                </div>
+                <div>
+                    <i class="far fa-share-square"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 底部导航栏 -->
+    <div class="bottom-nav">
+        <div class="nav-item" data-page="home">
+            <i class="fas fa-home"></i>
+            <span>首页</span>
+        </div>
+        <div class="nav-item" data-page="category">
+            <i class="fas fa-th-large"></i>
+            <span>分类</span>
+        </div>
+        <div class="nav-item" data-page="community">
+            <i class="fas fa-compass"></i>
+            <span>社区</span>
+        </div>
+        <div class="nav-item" data-page="cart">
+            <i class="fas fa-shopping-cart"></i>
+            <span>购物车</span>
+        </div>
+        <div class="nav-item active" data-page="profile">
+            <i class="fas fa-user"></i>
+            <span>我的</span>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 深色模式切换按钮可以加到设置中
+            document.querySelector('.fa-cog').parentElement.addEventListener('click', function() {
+                // 显示设置菜单的操作 - 在这里只是简单地切换暗黑模式
+                toggleDarkMode();
+            });
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,94 @@
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #333;
+  font-size: 14px;
+  line-height: 1.5;
+  background-color: #f5f7fa;
+}
+
+a {
+  text-decoration: none;
+  color: #409eff;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 500;
+  margin-bottom: 0.5em;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  margin: 2rem 0 1rem;
+  color: #333;
+}
+
+/* Grid layout */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -15px;
+}
+
+.col {
+  padding: 0 15px;
+  flex: 1;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s;
+}
+
+.btn-primary {
+  background-color: #409eff;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #66b1ff;
+}
+
+.btn-danger {
+  background-color: #f56c6c;
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #f78989;
+}
+
+/* Card style */
+.card {
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+} 

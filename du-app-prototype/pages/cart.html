@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>购物车 - 得物</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- 顶部标题栏 -->
+    <div class="sticky top-0 z-10 bg-white dark:bg-black shadow-sm px-4 py-3 flex justify-between items-center">
+        <h1 class="text-xl font-bold">购物车</h1>
+        <span class="text-sm text-gray-500">管理</span>
+    </div>
+
+    <!-- 购物车内容 -->
+    <div class="p-3">
+        <!-- 购物车项目 -->
+        <div class="bg-white dark:bg-gray-900 rounded-lg overflow-hidden mb-3">
+            <div class="flex p-3 border-b border-gray-100 dark:border-gray-800">
+                <div class="flex items-center mr-3">
+                    <input type="checkbox" class="w-5 h-5 rounded-full">
+                </div>
+                <div class="flex-1">
+                    <div class="font-medium">得物自营</div>
+                    <div class="flex items-center text-xs text-gray-500 mt-1">
+                        <i class="fas fa-truck mr-1"></i> 包邮
+                        <span class="mx-2">|</span>
+                        <span>7天无理由退货</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 商品项目1 -->
+            <div class="flex p-3">
+                <div class="flex items-center mr-3">
+                    <input type="checkbox" class="w-5 h-5 rounded-full" checked>
+                </div>
+                <div class="w-20 h-20 rounded-md overflow-hidden mr-3">
+                    <img src="https://images.unsplash.com/photo-1556906781-9a412961c28c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Air Jordan 1" class="w-full h-full object-cover">
+                </div>
+                <div class="flex-1">
+                    <h3 class="text-sm font-medium">耐克 Air Jordan 1 "Chicago" 高帮</h3>
+                    <div class="text-xs text-gray-500 mt-1">尺码：US9</div>
+                    <div class="flex justify-between items-center mt-2">
+                        <div class="text-sm font-bold text-red-600 dark:text-red-400">¥3,599</div>
+                        <div class="flex items-center">
+                            <button class="w-6 h-6 border border-gray-300 dark:border-gray-700 flex items-center justify-center rounded-full">-</button>
+                            <input type="text" value="1" class="w-8 text-center mx-1 text-sm">
+                            <button class="w-6 h-6 border border-gray-300 dark:border-gray-700 flex items-center justify-center rounded-full">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 商品项目2 -->
+            <div class="flex p-3 border-t border-gray-100 dark:border-gray-800">
+                <div class="flex items-center mr-3">
+                    <input type="checkbox" class="w-5 h-5 rounded-full" checked>
+                </div>
+                <div class="w-20 h-20 rounded-md overflow-hidden mr-3">
+                    <img src="https://images.unsplash.com/photo-1539185441755-769473a23570?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Yeezy" class="w-full h-full object-cover">
+                </div>
+                <div class="flex-1">
+                    <h3 class="text-sm font-medium">Adidas Yeezy Boost 350 V2 "Zebra"</h3>
+                    <div class="text-xs text-gray-500 mt-1">尺码：US10</div>
+                    <div class="flex justify-between items-center mt-2">
+                        <div class="text-sm font-bold text-red-600 dark:text-red-400">¥2,899</div>
+                        <div class="flex items-center">
+                            <button class="w-6 h-6 border border-gray-300 dark:border-gray-700 flex items-center justify-center rounded-full">-</button>
+                            <input type="text" value="1" class="w-8 text-center mx-1 text-sm">
+                            <button class="w-6 h-6 border border-gray-300 dark:border-gray-700 flex items-center justify-center rounded-full">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 猜你喜欢 -->
+        <div class="mt-5">
+            <h2 class="text-lg font-bold mb-3">猜你喜欢</h2>
+            <div class="grid grid-cols-2 gap-2">
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1607522370275-f14c93dd7fc3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Dunk" class="w-full h-40 object-cover">
+                    <div class="p-2">
+                        <h3 class="text-sm font-medium">耐克 Dunk Low "Panda"</h3>
+                        <div class="text-sm font-bold text-red-600 dark:text-red-400 mt-1">¥899</div>
+                        <div class="text-xs text-gray-500 mt-1">3.2万人付款</div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1600269452121-4f2416e55c28?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="New Balance" class="w-full h-40 object-cover">
+                    <div class="p-2">
+                        <h3 class="text-sm font-medium">New Balance 990v3 灰色</h3>
+                        <div class="text-sm font-bold text-red-600 dark:text-red-400 mt-1">¥1,299</div>
+                        <div class="text-xs text-gray-500 mt-1">1.5万人付款</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 底部结算栏 -->
+    <div class="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 flex items-center px-3 py-2">
+        <div class="flex items-center mr-3">
+            <input type="checkbox" class="w-5 h-5 rounded-full" checked>
+            <span class="ml-2 text-sm">全选</span>
+        </div>
+        <div class="flex-1 text-right">
+            <div class="text-sm">合计: <span class="text-red-600 dark:text-red-400 font-bold">¥6,498</span></div>
+            <div class="text-xs text-gray-500">共2件商品，已优惠¥200</div>
+        </div>
+        <button class="ml-3 px-5 py-2 rounded-full text-white font-medium" style="background-color: var(--primary-color);">
+            结算(2)
+        </button>
+    </div>
+    
+    <!-- 底部导航栏 - 计算额外高度避免遮挡内容 -->
+    <div style="height: 120px;"></div>
+    
+    <!-- 底部导航栏 -->
+    <div class="bottom-nav">
+        <div class="nav-item" data-page="home">
+            <i class="fas fa-home"></i>
+            <span>首页</span>
+        </div>
+        <div class="nav-item" data-page="category">
+            <i class="fas fa-th-large"></i>
+            <span>分类</span>
+        </div>
+        <div class="nav-item" data-page="community">
+            <i class="fas fa-compass"></i>
+            <span>社区</span>
+        </div>
+        <div class="nav-item active" data-page="cart">
+            <i class="fas fa-shopping-cart"></i>
+            <span>购物车</span>
+        </div>
+        <div class="nav-item" data-page="profile">
+            <i class="fas fa-user"></i>
+            <span>我的</span>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+</body>
+</html> 
