@@ -156,14 +156,44 @@
       <div class="recommended-section">
         <h2 class="section-title">为您推荐</h2>
         <div class="recommended-products">
-          <div v-for="n in 4" :key="n" class="recommended-product">
+          <div class="recommended-product">
             <div class="product-image">
-              <img :src="`https://picsum.photos/400/400?random=${n + 10}`" alt="推荐商品">
+              <img src="https://images.pexels.com/photos/9978722/pexels-photo-9978722.jpeg" alt="推荐商品">
             </div>
             <div class="product-info">
-              <div class="product-brand">精选品牌</div>
-              <div class="product-name">奢华精品 {{ n }}</div>
-              <div class="product-price">¥{{ (Math.random() * 10000 + 1000).toFixed(2) }}</div>
+              <div class="product-brand">LUXURY TIME</div>
+              <div class="product-name">瑞士经典机械表</div>
+              <div class="product-price">¥68,000.00</div>
+            </div>
+          </div>
+          <div class="recommended-product">
+            <div class="product-image">
+              <img src="https://images.pexels.com/photos/1152077/pexels-photo-1152077.jpeg" alt="推荐商品">
+            </div>
+            <div class="product-info">
+              <div class="product-brand">ELEGANT</div>
+              <div class="product-name">经典菱格链条包</div>
+              <div class="product-price">¥29,800.00</div>
+            </div>
+          </div>
+          <div class="recommended-product">
+            <div class="product-image">
+              <img src="https://images.pexels.com/photos/1927259/pexels-photo-1927259.jpeg" alt="推荐商品">
+            </div>
+            <div class="product-info">
+              <div class="product-brand">GEMS & JEWELS</div>
+              <div class="product-name">钻石项链</div>
+              <div class="product-price">¥235,000.00</div>
+            </div>
+          </div>
+          <div class="recommended-product">
+            <div class="product-image">
+              <img src="https://images.pexels.com/photos/325876/pexels-photo-325876.jpeg" alt="推荐商品">
+            </div>
+            <div class="product-info">
+              <div class="product-brand">TAILOR MADE</div>
+              <div class="product-name">高级定制西装</div>
+              <div class="product-price">¥45,800.00</div>
             </div>
           </div>
         </div>
