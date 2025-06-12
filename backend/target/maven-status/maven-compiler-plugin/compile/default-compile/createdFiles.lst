@@ -1,8 +1,10 @@
 com/example/dumall/entity/Order$OrderStatus.class
+com/example/dumall/controller/ProductController.class
 com/example/dumall/security/jwt/AuthTokenFilter.class
 com/example/dumall/config/WebConfig.class
 com/example/dumall/dto/response/JwtResponse.class
 com/example/dumall/config/DatabaseInitializer.class
+com/example/dumall/controller/CartController.class
 com/example/dumall/entity/OrderItem.class
 com/example/dumall/entity/Address.class
 com/example/dumall/controller/AuthController.class
@@ -16,11 +18,11 @@ com/example/dumall/security/service/UserDetailsServiceImpl.class
 com/example/dumall/repository/AddressRepository.class
 com/example/dumall/entity/User.class
 com/example/dumall/security/service/UserDetailsImpl.class
-com/example/dumall/entity/Role$ERole.class
 com/example/dumall/repository/CartItemRepository.class
 com/example/dumall/repository/ProductRepository.class
 com/example/dumall/entity/CartItem.class
 com/example/dumall/dto/request/LoginRequest.class
+com/example/dumall/controller/CategoryController.class
 com/example/dumall/entity/Role.class
 com/example/dumall/security/jwt/AuthEntryPointJwt.class
 com/example/dumall/DumallApplication.class

@@ -6,6 +6,7 @@ import com.example.dumall.security.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -64,10 +65,20 @@ public class WebSecurityConfig {
             .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth ->
+                // 允许所有人访问的公共API
                 auth.requestMatchers("/api/auth/**").permitAll()
                     .requestMatchers("/api/products/**").permitAll()
                     .requestMatchers("/api/categories/**").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/api/cart").authenticated() // 只有已登录用户可以获取购物车
+                    .requestMatchers("/api/cart/**").authenticated() // 购物车操作需要认证
+                    .requestMatchers("/api/exchanges").permitAll() // 允许查看交换列表
+                    .requestMatchers("/api/exchanges/*/offer").authenticated() // 需要登录才能提交交换申请
                     .requestMatchers("/h2-console/**").permitAll()
+                    .requestMatchers("/error").permitAll()
+                    .requestMatchers("/").permitAll()
+                    // 静态资源
+                    .requestMatchers("/images/**", "/css/**", "/js/**", "/favicon.ico").permitAll()
+                    // 其他请求需要认证
                     .anyRequest().authenticated()
             );
 
@@ -83,8 +94,8 @@ public class WebSecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173", "http://localhost:5174"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);
         

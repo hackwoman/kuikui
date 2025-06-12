@@ -1,7 +1,6 @@
 package com.example.dumall.config;
 
 import com.example.dumall.entity.Role;
-import com.example.dumall.entity.Role.ERole;
 import com.example.dumall.entity.User;
 import com.example.dumall.repository.RoleRepository;
 import com.example.dumall.repository.UserRepository;
@@ -37,8 +36,8 @@ public class DatabaseInitializer implements CommandLineRunner {
     private void initRoles() {
         // 如果角色表为空，则创建默认角色
         if (roleRepository.count() == 0) {
-            Role userRole = new Role(ERole.ROLE_USER);
-            Role adminRole = new Role(ERole.ROLE_ADMIN);
+            Role userRole = new Role("ROLE_USER");
+            Role adminRole = new Role("ROLE_ADMIN");
             
             roleRepository.save(userRole);
             roleRepository.save(adminRole);
@@ -58,7 +57,7 @@ public class DatabaseInitializer implements CommandLineRunner {
             admin.setName("系统管理员");
             
             Set<Role> roles = new HashSet<>();
-            Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
+            Role adminRole = roleRepository.findByName("ROLE_ADMIN")
                     .orElseThrow(() -> new RuntimeException("管理员角色未找到"));
             roles.add(adminRole);
             admin.setRoles(roles);

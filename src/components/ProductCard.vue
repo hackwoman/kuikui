@@ -3,7 +3,7 @@
     <router-link :to="`/product/${product.id}`" class="product-link">
       <div class="product-badges">
         <span v-if="product.isAuthenticated" class="badge authenticated">已鉴定</span>
-        <span v-if="product.isLimited" class="badge limited">限量版</span>
+        <span v-if="product.isLimited" class="badge limited">限量</span>
         <span v-if="product.isExchangeable" class="badge exchangeable">可交换</span>
         <span v-if="product.condition" class="badge condition">{{ getConditionText(product.condition) }}</span>
       </div>
@@ -11,56 +11,42 @@
       <div class="product-image">
         <img :src="product.imageUrl" :alt="product.name">
       </div>
-      
-      <div class="product-info">
-        <div v-if="product.brand" class="product-brand">{{ product.brand }}</div>
-        <h3 class="product-name">{{ product.name }}</h3>
-        
-        <div class="product-price-section">
-          <p class="product-price">¥{{ product.price.toFixed(2) }}</p>
-          <p v-if="product.originalPrice" class="product-original-price">¥{{ product.originalPrice.toFixed(2) }}</p>
-        </div>
-        
-        <div class="product-meta">
-          <span class="product-sold">已售 {{ product.soldCount || 0 }}</span>
-          <span class="product-likes">{{ product.likeCount || 0 }} 喜欢</span>
-        </div>
-      </div>
     </router-link>
     
-    <div class="product-actions">
-      <div class="action-buttons">
+    <div class="product-info">
+      <div class="product-header">
+        <div v-if="product.brand" class="product-brand">{{ product.brand }}</div>
+        <div v-else class="product-brand">精品奢华</div>
+        <div class="favorite-icon" @click.stop="toggleLike">
+          <i :class="[isLiked ? 'el-icon-star-on liked' : 'el-icon-star-off']"></i>
+        </div>
+      </div>
+      
+      <router-link :to="`/product/${product.id}`" class="product-name-link">
+        <h3 class="product-name">{{ product.name }}</h3>
+      </router-link>
+      
+      <div class="product-price-section">
+        <p class="product-price">¥{{ Number(product.price).toFixed(2) }}</p>
+        <p v-if="product.originalPrice" class="product-original-price">¥{{ Number(product.originalPrice).toFixed(2) }}</p>
+      </div>
+      
+      <div class="product-actions">
         <el-button 
           type="primary" 
-          size="small" 
-          @click="addToCart"
-          class="buy-button"
+          class="add-to-cart-btn"
+          @click.stop="addToCartOnly"
+        >
+          加入购物袋
+        </el-button>
+        
+        <el-button 
+          plain
+          class="buy-now-btn"
+          @click.stop="addToCart"
         >
           立即购买
         </el-button>
-        
-        <el-button 
-          v-if="product.isExchangeable"
-          size="small" 
-          @click="offerExchange"
-          class="exchange-button"
-        >
-          发起交换
-        </el-button>
-      </div>
-      
-      <div class="action-icons">
-        <el-tooltip content="加入收藏" placement="top">
-          <i 
-            class="action-icon" 
-            :class="[isLiked ? 'el-icon-star-on liked' : 'el-icon-star-off']"
-            @click="toggleLike"
-          ></i>
-        </el-tooltip>
-        
-        <el-tooltip content="加入购物车" placement="top">
-          <i class="action-icon el-icon-shopping-cart-2" @click.stop="addToCartOnly"></i>
-        </el-tooltip>
       </div>
     </div>
   </div>
@@ -86,7 +72,12 @@ const userStore = useUserStore()
 const isLiked = ref(false)
 
 // 添加到购物车并跳转到购物车页面
-const addToCart = async () => {
+const addToCart = async (event) => {
+  if (event) {
+    event.preventDefault()
+    event.stopPropagation()
+  }
+  
   if (!userStore.isLoggedIn) {
     ElMessage.warning('请先登录')
     router.push({ path: '/login', query: { redirect: `/product/${props.product.id}` } })
@@ -99,15 +90,17 @@ const addToCart = async () => {
       router.push('/cart')
     }
   } catch (error) {
-    console.error('添加到购物车失败', error)
-    ElMessage.error('添加到购物车失败')
+    console.error('添加到购物袋失败', error)
+    ElMessage.error('添加到购物袋失败')
   }
 }
 
 // 仅添加到购物车
 const addToCartOnly = async (event) => {
-  event.preventDefault()
-  event.stopPropagation()
+  if (event) {
+    event.preventDefault()
+    event.stopPropagation()
+  }
   
   if (!userStore.isLoggedIn) {
     ElMessage.warning('请先登录')
@@ -118,19 +111,16 @@ const addToCartOnly = async (event) => {
   try {
     const success = await cartStore.addToCart(props.product.id, 1)
     if (success) {
-      ElMessage.success('已添加到购物车')
+      ElMessage.success('已添加到购物袋')
     }
   } catch (error) {
-    console.error('添加到购物车失败', error)
-    ElMessage.error('添加到购物车失败')
+    console.error('添加到购物袋失败', error)
+    ElMessage.error('添加到购物袋失败')
   }
 }
 
 // 发起交换
-const offerExchange = (event) => {
-  event.preventDefault()
-  event.stopPropagation()
-  
+const offerExchange = () => {
   if (!userStore.isLoggedIn) {
     ElMessage.warning('请先登录')
     router.push({ path: '/login', query: { redirect: `/product/${props.product.id}` } })
@@ -171,44 +161,42 @@ const getConditionText = (condition) => {
 <style scoped>
 .product-card {
   background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition: all 0.3s;
+  position: relative;
   height: 100%;
   display: flex;
   flex-direction: column;
-  position: relative;
+  border: 1px solid transparent;
 }
 
 .product-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border-color: #ddd;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
 }
 
 .product-link {
   color: inherit;
   text-decoration: none;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+  display: block;
 }
 
 .product-image {
-  height: 200px;
+  height: 280px;
   overflow: hidden;
   position: relative;
+  background-color: #f9f9f9;
 }
 
 .product-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.3s;
+  transition: transform 0.5s ease;
 }
 
 .product-card:hover .product-image img {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
 .product-badges {
@@ -222,66 +210,105 @@ const getConditionText = (condition) => {
 }
 
 .badge {
-  padding: 2px 6px;
-  border-radius: 3px;
-  font-size: 12px;
-  font-weight: 500;
+  padding: 3px 8px;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
 .authenticated {
-  background-color: #409eff;
+  background-color: #000;
   color: white;
 }
 
 .limited {
-  background-color: #f56c6c;
+  background-color: #be0000;
   color: white;
 }
 
 .exchangeable {
-  background-color: #67c23a;
+  background-color: #333;
   color: white;
 }
 
 .condition {
-  background-color: #e6a23c;
+  background-color: #555;
   color: white;
 }
 
 .product-info {
-  padding: 15px;
+  padding: 16px;
   flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
 }
 
 .product-brand {
-  color: #909399;
+  color: #777;
   font-size: 12px;
-  margin-bottom: 5px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.favorite-icon {
+  cursor: pointer;
+  font-size: 18px;
+  color: #ccc;
+  transition: color 0.3s;
+}
+
+.favorite-icon:hover {
+  color: #333;
+}
+
+.favorite-icon .liked {
+  color: #be0000;
+}
+
+.product-name-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  margin-bottom: 10px;
 }
 
 .product-name {
-  font-size: 16px;
-  margin-bottom: 8px;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  height: 44px;
+  color: #000;
+}
+
+.product-name:hover {
+  text-decoration: underline;
 }
 
 .product-price-section {
   display: flex;
   align-items: baseline;
-  margin-bottom: 8px;
+  margin-bottom: 15px;
 }
 
 .product-price {
-  color: #f56c6c;
-  font-size: 18px;
-  font-weight: bold;
-  margin-right: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #000;
+  margin-right: 10px;
 }
 
 .product-original-price {
@@ -290,45 +317,43 @@ const getConditionText = (condition) => {
   text-decoration: line-through;
 }
 
-.product-meta {
-  display: flex;
-  justify-content: space-between;
-  font-size: 12px;
-  color: #909399;
-}
-
 .product-actions {
-  padding: 0 15px 15px;
-}
-
-.action-buttons {
-  display: flex;
+  margin-top: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 10px;
-  margin-bottom: 10px;
 }
 
-.buy-button, .exchange-button {
-  flex: 1;
+.add-to-cart-btn, .buy-now-btn {
+  height: 40px;
+  font-size: 13px;
+  border-radius: 0;
+  padding: 0;
 }
 
-.action-icons {
-  display: flex;
-  justify-content: flex-end;
-  gap: 15px;
+.add-to-cart-btn {
+  background: #000;
+  border-color: #000;
 }
 
-.action-icon {
-  cursor: pointer;
-  font-size: 18px;
-  color: #909399;
-  transition: color 0.3s;
+.buy-now-btn {
+  color: #000;
+  border-color: #000;
 }
 
-.action-icon:hover {
-  color: #409eff;
+.buy-now-btn:hover {
+  color: #fff;
+  background-color: #333;
+  border-color: #333;
 }
 
-.action-icon.liked {
-  color: #f56c6c;
+@media (max-width: 767px) {
+  .product-image {
+    height: 200px;
+  }
+  
+  .product-actions {
+    grid-template-columns: 1fr;
+  }
 }
 </style> 

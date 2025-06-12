@@ -1,7 +1,9 @@
+/home/devbox/project/backend/src/main/java/com/example/dumall/controller/CartController.java
 /home/devbox/project/backend/src/main/java/com/example/dumall/repository/RoleRepository.java
 /home/devbox/project/backend/src/main/java/com/example/dumall/security/service/UserDetailsImpl.java
 /home/devbox/project/backend/src/main/java/com/example/dumall/repository/OrderItemRepository.java
 /home/devbox/project/backend/src/main/java/com/example/dumall/repository/OrderRepository.java
+/home/devbox/project/backend/src/main/java/com/example/dumall/controller/ProductController.java
 /home/devbox/project/backend/src/main/java/com/example/dumall/config/WebConfig.java
 /home/devbox/project/backend/src/main/java/com/example/dumall/DumallApplication.java
 /home/devbox/project/backend/src/main/java/com/example/dumall/entity/Order.java
@@ -19,6 +21,7 @@
 /home/devbox/project/backend/src/main/java/com/example/dumall/entity/Product.java
 /home/devbox/project/backend/src/main/java/com/example/dumall/repository/CartItemRepository.java
 /home/devbox/project/backend/src/main/java/com/example/dumall/entity/CartItem.java
+/home/devbox/project/backend/src/main/java/com/example/dumall/controller/CategoryController.java
 /home/devbox/project/backend/src/main/java/com/example/dumall/repository/ProductRepository.java
 /home/devbox/project/backend/src/main/java/com/example/dumall/security/jwt/JwtUtils.java
 /home/devbox/project/backend/src/main/java/com/example/dumall/repository/UserRepository.java

@@ -12,6 +12,10 @@
           <el-input v-model="registerForm.username" placeholder="请输入用户名"></el-input>
         </el-form-item>
         
+        <el-form-item label="姓名" prop="name">
+          <el-input v-model="registerForm.name" placeholder="请输入姓名"></el-input>
+        </el-form-item>
+        
         <el-form-item label="邮箱" prop="email">
           <el-input v-model="registerForm.email" placeholder="请输入邮箱"></el-input>
         </el-form-item>
@@ -49,6 +53,7 @@ const loading = ref(false)
 
 const registerForm = reactive({
   username: '',
+  name: '',
   email: '',
   password: '',
   confirmPassword: ''
@@ -82,6 +87,10 @@ const rules = {
     { required: true, message: '请输入用户名', trigger: 'blur' },
     { min: 3, max: 20, message: '用户名长度应在3-20个字符之间', trigger: 'blur' }
   ],
+  name: [
+    { required: false, message: '请输入姓名', trigger: 'blur' },
+    { max: 50, message: '姓名长度不能超过50个字符', trigger: 'blur' }
+  ],
   email: [
     { required: true, message: '请输入邮箱', trigger: 'blur' },
     { type: 'email', message: '请输入正确的邮箱格式', trigger: 'blur' }
@@ -102,20 +111,38 @@ const submitForm = async () => {
     await formRef.value.validate()
     
     loading.value = true
-    const response = await userStore.register(
-      registerForm.username,
-      registerForm.email,
-      registerForm.password
-    )
-    
-    ElMessage.success('注册成功，请登录')
-    router.push('/login')
-  } catch (error) {
-    if (error.message) {
-      ElMessage.error(error.message)
-    } else {
-      ElMessage.error('注册失败，请稍后重试')
+    try {
+      const response = await userStore.register(
+        registerForm.username,
+        registerForm.email,
+        registerForm.password,
+        registerForm.name
+      )
+      
+      console.log('注册响应:', response)
+      
+      if (response && response.message) {
+        ElMessage.success(response.message || '注册成功，请登录')
+        router.push('/login')
+      } else {
+        ElMessage.success('注册成功，请登录')
+        router.push('/login')
+      }
+    } catch (error) {
+      console.error('注册错误:', error)
+      
+      if (error.response && error.response.data) {
+        const errorMessage = error.response.data.message || '注册失败，请稍后重试'
+        ElMessage.error(errorMessage)
+      } else if (error.message) {
+        ElMessage.error(error.message)
+      } else {
+        ElMessage.error('注册失败，请稍后重试')
+      }
     }
+  } catch (validationError) {
+    console.error('表单验证错误:', validationError)
+    ElMessage.error('请正确填写所有必填字段')
   } finally {
     loading.value = false
   }

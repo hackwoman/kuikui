@@ -36,21 +36,34 @@ export const useUserStore = defineStore('user', () => {
       return false
     } catch (error) {
       console.error('Login error:', error)
-      return false
+      throw error
     }
   }
   
-  async function register(username, email, password) {
+  async function register(username, email, password, name = '', phone = '', address = '') {
     try {
-      const response = await userApi.register({
+      // 准备注册数据
+      const registerData = {
         username,
         email,
-        password
-      })
+        password,
+        roles: ["user"] // 默认为普通用户角色
+      }
+      
+      // 添加可选字段（如果提供的话）
+      if (name) registerData.name = name
+      if (phone) registerData.phone = phone
+      if (address) registerData.address = address
+      
+      console.log('发送注册请求:', registerData)
+      
+      const response = await userApi.register(registerData)
+      console.log('注册成功:', response)
       
       return response
     } catch (error) {
       console.error('Registration error:', error)
+      // 重新抛出错误，以便在组件中处理
       throw error
     }
   }

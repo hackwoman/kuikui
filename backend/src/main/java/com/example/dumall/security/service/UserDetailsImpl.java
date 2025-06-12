@@ -21,6 +21,10 @@ public class UserDetailsImpl implements UserDetails {
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
 
+    // 添加默认构造函数，用于序列化/反序列化
+    public UserDetailsImpl() {
+    }
+
     public UserDetailsImpl(Long id, String username, String email, String password,
                            Collection<? extends GrantedAuthority> authorities) {
         this.id = id;

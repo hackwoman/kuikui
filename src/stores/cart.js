@@ -2,6 +2,8 @@ import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import { cartApi } from '@/api/index'
 import { useUserStore } from './user'
+import { ElMessage } from 'element-plus'
+import router from '@/router'
 
 export const useCartStore = defineStore('cart', () => {
   const cartItems = ref([])
@@ -17,9 +19,19 @@ export const useCartStore = defineStore('cart', () => {
   
   const totalPrice = computed(() => {
     return cartItems.value.reduce((total, item) => {
-      return total + (item.product.price * item.quantity)
+      return total + (Number(item.product.price) * item.quantity)
     }, 0).toFixed(2)
   })
+  
+  // 检查用户登录状态，如果未登录则提示并跳转到登录页
+  const checkLoginStatus = () => {
+    if (!userStore.isLoggedIn) {
+      ElMessage.warning('请先登录以使用购物袋功能')
+      router.push('/login')
+      return false
+    }
+    return true
+  }
   
   // 动作
   async function fetchCartItems() {
@@ -34,15 +46,21 @@ export const useCartStore = defineStore('cart', () => {
       
       return response
     } catch (err) {
-      error.value = '获取购物车信息失败'
-      console.error('获取购物车失败:', err)
+      if (err.response && err.response.status === 401) {
+        // 未授权错误，用户未登录
+        error.value = '请先登录以查看购物袋'
+        cartItems.value = []
+      } else {
+        error.value = '获取购物袋信息失败'
+        console.error('获取购物袋失败:', err)
+      }
     } finally {
       loading.value = false
     }
   }
   
   async function addToCart(productId, quantity = 1) {
-    if (!userStore.isLoggedIn) return false
+    if (!checkLoginStatus()) return false
     
     try {
       loading.value = true
@@ -54,10 +72,19 @@ export const useCartStore = defineStore('cart', () => {
       })
       
       await fetchCartItems()
+      ElMessage.success('商品已添加到购物袋')
       return true
     } catch (err) {
-      error.value = '添加商品到购物车失败'
-      console.error('添加到购物车失败:', err)
+      if (err.response && err.response.status === 401) {
+        // 未授权错误，用户未登录
+        error.value = '请先登录以添加商品到购物袋'
+        ElMessage.warning('请先登录以添加商品到购物袋')
+        router.push('/login')
+      } else {
+        error.value = '添加商品到购物袋失败'
+        ElMessage.error('添加商品到购物袋失败')
+        console.error('添加到购物袋失败:', err)
+      }
       return false
     } finally {
       loading.value = false
@@ -65,7 +92,7 @@ export const useCartStore = defineStore('cart', () => {
   }
   
   async function updateCartItem(cartItemId, quantity) {
-    if (!userStore.isLoggedIn) return false
+    if (!checkLoginStatus()) return false
     
     try {
       loading.value = true
@@ -78,8 +105,15 @@ export const useCartStore = defineStore('cart', () => {
       await fetchCartItems()
       return true
     } catch (err) {
-      error.value = '更新购物车失败'
-      console.error('更新购物车失败:', err)
+      if (err.response && err.response.status === 401) {
+        error.value = '请先登录以更新购物袋'
+        ElMessage.warning('请先登录以更新购物袋')
+        router.push('/login')
+      } else {
+        error.value = '更新购物袋失败'
+        ElMessage.error('更新购物袋失败')
+        console.error('更新购物袋失败:', err)
+      }
       return false
     } finally {
       loading.value = false
@@ -87,7 +121,7 @@ export const useCartStore = defineStore('cart', () => {
   }
   
   async function removeFromCart(cartItemId) {
-    if (!userStore.isLoggedIn) return false
+    if (!checkLoginStatus()) return false
     
     try {
       loading.value = true
@@ -98,8 +132,15 @@ export const useCartStore = defineStore('cart', () => {
       await fetchCartItems()
       return true
     } catch (err) {
-      error.value = '从购物车移除商品失败'
-      console.error('移除购物车商品失败:', err)
+      if (err.response && err.response.status === 401) {
+        error.value = '请先登录以移除购物袋商品'
+        ElMessage.warning('请先登录以移除购物袋商品')
+        router.push('/login')
+      } else {
+        error.value = '从购物袋移除商品失败'
+        ElMessage.error('从购物袋移除商品失败')
+        console.error('移除购物袋商品失败:', err)
+      }
       return false
     } finally {
       loading.value = false
@@ -107,7 +148,7 @@ export const useCartStore = defineStore('cart', () => {
   }
   
   async function clearCart() {
-    if (!userStore.isLoggedIn) return false
+    if (!checkLoginStatus()) return false
     
     try {
       loading.value = true
@@ -118,8 +159,15 @@ export const useCartStore = defineStore('cart', () => {
       cartItems.value = []
       return true
     } catch (err) {
-      error.value = '清空购物车失败'
-      console.error('清空购物车失败:', err)
+      if (err.response && err.response.status === 401) {
+        error.value = '请先登录以清空购物袋'
+        ElMessage.warning('请先登录以清空购物袋')
+        router.push('/login')
+      } else {
+        error.value = '清空购物袋失败'
+        ElMessage.error('清空购物袋失败')
+        console.error('清空购物袋失败:', err)
+      }
       return false
     } finally {
       loading.value = false

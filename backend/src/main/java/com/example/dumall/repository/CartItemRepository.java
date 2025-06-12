@@ -1,8 +1,6 @@
 package com.example.dumall.repository;
 
 import com.example.dumall.entity.CartItem;
-import com.example.dumall.entity.Product;
-import com.example.dumall.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,7 +9,9 @@ import java.util.Optional;
 
 @Repository
 public interface CartItemRepository extends JpaRepository<CartItem, Long> {
-    List<CartItem> findByUser(User user);
-    Optional<CartItem> findByUserAndProduct(User user, Product product);
-    void deleteByUser(User user);
+    List<CartItem> findByUserId(Long userId);
+    
+    Optional<CartItem> findByUserIdAndProductId(Long userId, Long productId);
+    
+    void deleteByUserId(Long userId);
 } 

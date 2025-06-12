@@ -10,7 +10,7 @@
     </div>
     
     <!-- 分类快捷入口 -->
-    <div class="category-section container">
+    <div class="category-section container" v-if="categories.length > 0">
       <h2 class="section-title">热门分类</h2>
       <div class="category-list">
         <div class="category-item" v-for="category in categories" :key="category.id">
@@ -25,7 +25,7 @@
     </div>
     
     <!-- 推荐商品 -->
-    <div class="featured-section container">
+    <div class="featured-section container" v-if="featuredProducts.length > 0">
       <h2 class="section-title">推荐商品</h2>
       <el-row :gutter="20">
         <el-col :xs="12" :sm="8" :md="6" :lg="4" v-for="product in featuredProducts" :key="product.id" class="product-col">
@@ -35,7 +35,7 @@
     </div>
     
     <!-- 新品上架 -->
-    <div class="new-products-section container">
+    <div class="new-products-section container" v-if="newProducts.length > 0">
       <h2 class="section-title">新品上架</h2>
       <el-row :gutter="20">
         <el-col :xs="12" :sm="8" :md="6" :lg="4" v-for="product in newProducts" :key="product.id" class="product-col">
@@ -48,6 +48,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { ElMessage } from 'element-plus'
 import ProductCard from '../components/ProductCard.vue'
 import { useProductStore } from '../stores/product'
 
@@ -66,17 +67,28 @@ onMounted(async () => {
   try {
     // 获取分类
     const categoriesData = await productStore.fetchCategories()
-    categories.value = categoriesData
+    if (categoriesData && Array.isArray(categoriesData)) {
+      categories.value = categoriesData
+    }
     
     // 获取推荐商品
     const featuredData = await productStore.fetchProducts({ featured: true, limit: 6 })
-    featuredProducts.value = featuredData
+    if (featuredData && featuredData.content && Array.isArray(featuredData.content)) {
+      featuredProducts.value = featuredData.content
+    } else if (Array.isArray(featuredData)) {
+      featuredProducts.value = featuredData
+    }
     
     // 获取新品
     const newProductsData = await productStore.fetchProducts({ sort: 'createdAt,desc', limit: 6 })
-    newProducts.value = newProductsData
+    if (newProductsData && newProductsData.content && Array.isArray(newProductsData.content)) {
+      newProducts.value = newProductsData.content
+    } else if (Array.isArray(newProductsData)) {
+      newProducts.value = newProductsData
+    }
   } catch (error) {
     console.error('加载首页数据失败:', error)
+    ElMessage.error('加载数据失败，请稍后重试')
   }
 })
 </script>
